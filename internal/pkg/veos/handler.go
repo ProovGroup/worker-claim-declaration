@@ -50,8 +50,9 @@ func Handle(proovCode string) error {
 		return fmt.Errorf(respSinister.Message)
 	}
 
-	// Save response body in response_model field
+	// Save response body in response_model field along with the platform
 	sinister.Prequalif.ResponseModel = string(respBody)
+	sinister.Prequalif.Platform = "VEOS"
 	err = sinister.Prequalif.Save(provider.GetClaimDB())
 	if err != nil {
 		fmt.Println("[ERROR] sinister.Prequalif.Save:", err)
