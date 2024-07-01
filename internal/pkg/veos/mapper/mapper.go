@@ -26,15 +26,22 @@ func MapSinisterToVEOS(sinister *commonModel.Sinister) *veosModel.Sinister {
 		sinisterType = "2"
 	}
 
-	// Get the id_pol_survenance from contractInfo within the json_model
-	var contractInfo veosModel.ContractInfo
-	if contractInfo, ok = sinister.JsonModel["contractInfo"].(veosModel.ContractInfo); !ok {
+	// Get the contractInfo field from the json_model
+	var contractInfo map[string]interface{}
+	if contractInfo, ok = sinister.JsonModel["contractInfo"].(map[string]interface{}); !ok {
+		fmt.Println("[ERROR] missing 'contractInfo' field in sinister json_model")
+		return nil
+	}
+
+	// Get the id_pol_survenance field from the contractInfo field
+	var idPolSurvenance string
+	if idPolSurvenance, ok = contractInfo["id_pol_survenance"].(string); !ok {
 		fmt.Println("[ERROR] missing 'contractInfo' field in sinister json_model")
 		return nil
 	}
 
 	return &veosModel.Sinister{
-		IDPol:           contractInfo.IdPolSurvenance,
+		IDPol:           idPolSurvenance,
 		NumCbt:          sinister.ProovCode,
 		Type:            sinisterType,
 		DateOuverture:   sinister.CreatedAt.Format("02/01/2006"),
