@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ProovGroup/lib-claim-models/files"
 	"github.com/ProovGroup/lib-claim-models/prequalif"
 	"github.com/ProovGroup/worker-claim-declaration/internal/pkg/common/model"
 	"github.com/ProovGroup/worker-claim-declaration/internal/provider"
@@ -18,15 +17,8 @@ import (
 // the sinister to be declared using the data available in the
 // files and prequalif tables
 func GetSinister(proovCode string) (*model.Sinister, error) {
-	// Get files from db
-	f, err := files.GetFilesByProovCode(provider.GetClaimDB(), proovCode)
-	if err != nil {
-		fmt.Println("[ERROR] files.GetFilesByProovCode:", err)
-		return nil, err
-	}
-
 	// Get prequalif from db
-	pr, err := prequalif.GetPrequalifById(provider.GetClaimDB(), f.PrequalifId)
+	pr, err := prequalif.GetPrequalifByProovCode(provider.GetClaimDB(), proovCode)
 	if err != nil {
 		fmt.Println("[ERROR] prequalif.GetPrequalifById:", err)
 		return nil, err
@@ -39,36 +31,14 @@ func GetSinister(proovCode string) (*model.Sinister, error) {
 		return nil, err
 	}
 
-	var (
-		isCorporalDamage bool
-		ok               bool
-	)
-	if isCorporalDamage, ok = jsonModel["corporalDamage"].(bool); !ok {
-		msg := fmt.Sprintf("corporalDamage field is missing in the prequalif's JsonModel or it is not a valid boolean value (prequalif id: %d)", pr.ID)
-		fmt.Println("[ERROR] " + msg)
-		return nil, fmt.Errorf(msg)
-	}
-
 	return &model.Sinister{
-		ProovCode:  proovCode,
-		IDPol:      f.IdPol,
-		Register:   pr.Register,
-		IsCorporal: isCorporalDamage,
-		CreatedAt:  *f.CreatedAt,
-		UpdatedAt:  *f.UpdatedAt,
+		Prequalif: &pr,
+		ProovCode: proovCode,
+		JsonModel: jsonModel,
+		Register:  pr.Register,
+		CreatedAt: *pr.CreatedAt,
+		UpdatedAt: *pr.UpdatedAt,
 	}, nil
-}
-
-// Used once the target API has responded with a sinister_id that we should store in the files
-func SaveSinisterId(proovCode string, sinisterId int) error {
-	f, err := files.GetFilesByProovCode(provider.GetClaimDB(), proovCode)
-	if err != nil {
-		fmt.Println("[ERROR] files.GetFilesByProovCode:", err)
-		return err
-	}
-
-	f.SinistreId = sinisterId
-	return f.Save(provider.GetClaimDB())
 }
 
 // Set-up and send a POST request to a URL with a given body and access token

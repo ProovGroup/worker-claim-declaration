@@ -4,8 +4,8 @@ github.com/DATA-DOG/go-sqlmock v1.5.0 h1:Shsta01QNfFxHCfpW6YH2STWB0MudeXXEWMr20O
 github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/ProovGroup/lib-acl v1.0.2/go.mod h1:FoJbH3qvYJTQIZQjGxHLRPnr0vfdbSBD2kQL7HotHHM=
-github.com/ProovGroup/lib-claim-models v1.4.8 h1:oTqifv8IDmm7bYHlzH+DdbZo322ZBxVHGaxfUS/sTbY=
-github.com/ProovGroup/lib-claim-models v1.4.8/go.mod h1:xFPq8/6ucrN0X2KImT0dejKdBveyOFPwv+9vZCyEtZQ=
+github.com/ProovGroup/lib-claim-models v1.4.13 h1:IQuNixFJ8OM+wYuoCUPKW1rV8R2uPmaUvwDrbWdN3hU=
+github.com/ProovGroup/lib-claim-models v1.4.13/go.mod h1:xFPq8/6ucrN0X2KImT0dejKdBveyOFPwv+9vZCyEtZQ=
 github.com/ProovGroup/lib-core-models-base v1.1.1 h1:Li+PhmVWYJFAJUS+g0uYaec2+MLWPYxfOyMAKuPW87M=
 github.com/ProovGroup/lib-core-models-base v1.1.1/go.mod h1:PGy4ULP2ncSPzAlUl0k1LuaWPu+3b3dp8adZDgKi62Y=
 github.com/ProovGroup/lib-env v1.6.0/go.mod h1:TLAWlyLsuHxmzrc6lAGNBqjIWlZPueRt4UgOwqmk/FU=

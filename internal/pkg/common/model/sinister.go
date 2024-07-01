@@ -1,10 +1,16 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/ProovGroup/lib-claim-models/prequalif"
+)
 
 type Sinister struct {
+	Prequalif *prequalif.Prequalif
+
 	ProovCode  string
-	IDPol      string
+	JsonModel  map[string]interface{}
 	Register   string
 	IsCorporal bool
 	CreatedAt  time.Time
