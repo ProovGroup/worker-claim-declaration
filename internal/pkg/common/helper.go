@@ -26,7 +26,7 @@ func GetSinister(proovCode string) (*model.Sinister, error) {
 
 	// Get sinister type from JsonModel within the prequalif struct
 	var jsonModel map[string]interface{}
-	if err = json.Unmarshal([]byte(pr.JsonModel), &jsonModel); err != nil {
+	if err = json.Unmarshal([]byte(*pr.JsonModel), &jsonModel); err != nil {
 		fmt.Printf("[ERROR] json_model is not valid JSON (prequalif id: %d)\n", pr.ID)
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func GetSinister(proovCode string) (*model.Sinister, error) {
 		Prequalif: &pr,
 		ProovCode: proovCode,
 		JsonModel: jsonModel,
-		Register:  pr.Register,
+		Register:  *pr.Register,
 		CreatedAt: *pr.CreatedAt,
 		UpdatedAt: *pr.UpdatedAt,
 	}, nil

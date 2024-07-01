@@ -3,7 +3,7 @@ module github.com/ProovGroup/worker-claim-declaration
 go 1.22.3
 
 require (
-	github.com/ProovGroup/lib-claim-models v1.4.13
+	github.com/ProovGroup/lib-claim-models v1.4.0
 	github.com/ProovGroup/lib-env v1.16.0
 	github.com/aws/aws-lambda-go v1.47.0
 )
